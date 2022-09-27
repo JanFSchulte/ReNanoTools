@@ -20,7 +20,8 @@ import CRABClient
 #'/bsll_4FermionCI_M_500To1000_Lambda8TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
  #          ]
 
-with open('samples2018_recovery.txt') as file:
+#with open('samples2018_recovery.txt') as file:
+with open('tt.txt') as file:
 #with open('bsllSamples.txt') as file:
     datasets = file.readlines()
     datasets = [line.rstrip() for line in datasets]
@@ -66,17 +67,17 @@ if __name__ == '__main__':
     for data in datasets:
         print (data)
         config.Data.inputDataset = data
-	if "upgrade2018" in data:
-		dirName = data.split('/')[1]
-                print (dirName)
-		config.General.requestName     = dirName
-       		config.Data.outputDatasetTag     = 'RunIISummer20UL18-106X_upgrade2018_realistic_v16_L1v1_MG29X-v1_NANOAOD'
+        if "upgrade2018" in data:
+            dirName = data.split('/')[1]
+            print (dirName)
+            config.General.requestName     = dirName
+            config.Data.outputDatasetTag     = 'RunIISummer20UL18-106X_upgrade2018_realistic_v16_L1v1-v5_NANOAOD'
         else:
-		config.JobType.psetName = "NanoAODv9_2018_Data_cfg.py"	
-		dirName = data.split('/')[1] + "_" + data.split('/')[2].split("-")[0] 
-		config.General.requestName     = dirName
-		config.Data.outputDatasetTag     = data.split('/')[2] + "-NANOAOD"
+            config.JobType.psetName = "NanoAODv9_2018_Data_cfg.py"	
+            dirName = data.split('/')[1] + "_" + data.split('/')[2].split("-")[0] 
+            config.General.requestName     = dirName
+            config.Data.outputDatasetTag     = data.split('/')[2] + "-NANOAOD"
 	#try:
-	crabCommand('submit', config = config)
+        crabCommand('submit', config = config)
 	#except:
 	#	print("blbb")

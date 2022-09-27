@@ -20,7 +20,7 @@ import CRABClient
 #'/bsll_4FermionCI_M_500To1000_Lambda8TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
  #          ]
 
-with open('samples2017.txt') as file:
+with open('samples2017Fix.txt') as file:
     datasets = file.readlines()
     datasets = [line.rstrip() for line in datasets]
 
@@ -66,8 +66,9 @@ if __name__ == '__main__':
         config.Data.inputDataset = data
 	if "mc2017" in data:
 		dirName = data.split('/')[1]
+		print ("doing it right")
 		config.General.requestName     = dirName
-       		config.Data.outputDatasetTag     = 'RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9_NANOAOD'
+       		config.Data.outputDatasetTag     = 'RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9_NANOAOD_v2'
         else:
 		config.JobType.psetName = "NanoAODv9_2017_Data_cfg.py"	
 		dirName = data.split('/')[1] + "_" + data.split('/')[2].split("-")[0] 

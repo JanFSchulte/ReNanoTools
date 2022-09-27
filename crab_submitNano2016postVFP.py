@@ -1,40 +1,21 @@
 from CRABClient.UserUtilities import config
 import CRABClient
 
-#datasets = [
-#'/bsll_4FermionCI_M_1000To2000_Lambda1TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_1000To2000_Lambda2TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_1000To2000_Lambda4TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_1000To2000_Lambda8TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_2000ToInf_Lambda1TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_2000ToInf_Lambda2TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_2000ToInf_Lambda4TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_2000ToInf_Lambda8TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_200To500_Lambda1TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_200To500_Lambda2TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_200To500_Lambda4TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_200To500_Lambda8TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_500To1000_Lambda1TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_500To1000_Lambda2TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_500To1000_Lambda4TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
-#'/bsll_4FermionCI_M_500To1000_Lambda8TeV_13TeV_MadgraphMLM/jschulte-RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v3_MINIAOD-97622907258fdd18c13ba019aa6dffb1/USER',
- #          ]
-
-with open('samples2018.txt') as file:
+with open('samples2016postVFPFix.txt') as file:
     datasets = file.readlines()
     datasets = [line.rstrip() for line in datasets]
 
 config = config()
-config.General.workArea        = 'crab_nanoProd'
+config.General.workArea        = 'crab_nanoProd16postVFP'
 config.General.transferOutputs = True
 config.General.transferLogs    = False
 config.JobType.sendExternalFolder = True
 config.JobType.pluginName  = 'Analysis'
-config.JobType.psetName    = 'NanoAODv9_2018_cfg.py'
+config.JobType.psetName    = 'NanoAODv9_2016_postVFP_cfg.py'
 #config.JobType.numCores    = 4
 config.JobType.maxMemoryMB = 3500
 #config.JobType.maxJobRuntimeMin= 180
-config.Data.ignoreLocality = True
+#config.Data.ignoreLocality = True
 config.JobType.sendPythonFolder=True
 #config.Data.inputDBS = 'phys03'
 config.Data.splitting   = 'EventAwareLumiBased'
@@ -64,13 +45,18 @@ if __name__ == '__main__':
     
     for data in datasets:
         config.Data.inputDataset = data
-	if "upgrade2018" in data:
+	if "UL16MiniAODAPV" in data:
+                print ("submitting MC sample")
 		dirName = data.split('/')[1]
 		config.General.requestName     = dirName
-       		config.Data.outputDatasetTag     = 'RunIISummer20UL18-106X_upgrade2018_realistic_v16_L1v1-v3_NANOAOD'
+       		config.Data.outputDatasetTag     = 'RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17_v1_NANOAOD'
         else:
-		config.JobType.psetName = "NanoAODv9_2018_Data_cfg.py"	
+		config.JobType.psetName = "NanoAODv9_2016_postVFP_Data_cfg.py"	
 		dirName = data.split('/')[1] + "_" + data.split('/')[2].split("-")[0] 
+                if "ver1" in data:
+		    dirName = data.split('/')[1] + "_ver1" + "_" + data.split('/')[2].split("-")[0] 
+                if "ver2" in data:
+		    dirName = data.split('/')[1] + "_ver2" + "_" + data.split('/')[2].split("-")[0] 
 		config.General.requestName     = dirName
 		config.Data.outputDatasetTag     = data.split('/')[2] + "-NANOAOD"
         crabCommand('submit', config = config)
