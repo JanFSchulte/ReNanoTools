@@ -2,13 +2,13 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: --python_filename NanoAODv9_2016_preVFP_cfg.py --eventcontent NANOAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier NANOAODSIM --fileout file:nano.root --conditions 106X_mcRun2_asymptotic_preVFP_v11 --step NANO --filein dbs:/ADDmonoPhoton_MD-1_d-3_TuneCP5_13TeV-pythia8/RunIISummer20UL16MiniAODAPVv2-106X_mcRun2_asymptotic_preVFP_v11-v1/MINIAODSIM --era Run2_2016_HIPM,run2_nanoAOD_106Xv2 --no_exec --mc -n -1
+# with command line options: run3Nano_Winter22MC_cfg.py -s NANO --conditions 124X_mcRun3_2022_realistic_v11 --datatier NANOAODSIM -n 10 --eventcontent NANOAODSIM --geometry DB:Extended --era Run3,run3_nanoAOD_122 --customise=PhysicsTools/NanoAOD/V10/nano_cff.nanoAOD_customizeV10 --filein file:step2.root --fileout file:nano.root --mc
 import FWCore.ParameterSet.Config as cms
 
-from Configuration.Eras.Era_Run2_2016_HIPM_cff import Run2_2016_HIPM
-from Configuration.Eras.Modifier_run2_nanoAOD_106Xv2_cff import run2_nanoAOD_106Xv2
+from Configuration.Eras.Era_Run3_cff import Run3
+from Configuration.Eras.Modifier_run3_nanoAOD_122_cff import run3_nanoAOD_122
 
-process = cms.Process('NANO',Run2_2016_HIPM,run2_nanoAOD_106Xv2)
+process = cms.Process('NANO',Run3,run3_nanoAOD_122)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -23,27 +23,49 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(-1)
+    input = cms.untracked.int32(100),
+    output = cms.optional.untracked.allowed(cms.int32,cms.PSet)
 )
 
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring(
-        '/store/mc/RunIISummer20UL16MiniAODAPVv2/ADDmonoPhoton_MD-1_d-3_TuneCP5_13TeV-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/120000/491DF2C8-2B43-FD49-9128-3DE53EDEC20B.root', 
-        '/store/mc/RunIISummer20UL16MiniAODAPVv2/ADDmonoPhoton_MD-1_d-3_TuneCP5_13TeV-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/140000/11D03B1C-B5D2-EF4D-9256-56CE8B5A29DA.root', 
-        '/store/mc/RunIISummer20UL16MiniAODAPVv2/ADDmonoPhoton_MD-1_d-3_TuneCP5_13TeV-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/280000/523EDD10-176B-6D44-A075-69B43C7BF1AA.root', 
-        '/store/mc/RunIISummer20UL16MiniAODAPVv2/ADDmonoPhoton_MD-1_d-3_TuneCP5_13TeV-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/280000/97649593-C596-C74C-82BB-113BD6949049.root'
-    ),
+    fileNames = cms.untracked.vstring('/store/mc/Run3Winter22MiniAOD/DoubleElectron_FlatPt-1000To1500_13p6TeV/MINIAODSIM/FlatPU0to70_122X_mcRun3_2021_realistic_v9-v2/2520000/368d255a-cff0-499c-a262-105675160054.root'),
     secondaryFileNames = cms.untracked.vstring()
 )
 
 process.options = cms.untracked.PSet(
-
+    FailPath = cms.untracked.vstring(),
+    IgnoreCompletely = cms.untracked.vstring(),
+    Rethrow = cms.untracked.vstring(),
+    SkipEvent = cms.untracked.vstring(),
+    accelerators = cms.untracked.vstring('*'),
+    allowUnscheduled = cms.obsolete.untracked.bool,
+    canDeleteEarly = cms.untracked.vstring(),
+    deleteNonConsumedUnscheduledModules = cms.untracked.bool(True),
+    dumpOptions = cms.untracked.bool(False),
+    emptyRunLumiMode = cms.obsolete.untracked.string,
+    eventSetup = cms.untracked.PSet(
+        forceNumberOfConcurrentIOVs = cms.untracked.PSet(
+            allowAnyLabel_=cms.required.untracked.uint32
+        ),
+        numberOfConcurrentIOVs = cms.untracked.uint32(0)
+    ),
+    fileMode = cms.untracked.string('FULLMERGE'),
+    forceEventSetupCacheClearOnNewRun = cms.untracked.bool(False),
+    makeTriggerResults = cms.obsolete.untracked.bool,
+    numberOfConcurrentLuminosityBlocks = cms.untracked.uint32(0),
+    numberOfConcurrentRuns = cms.untracked.uint32(1),
+    numberOfStreams = cms.untracked.uint32(0),
+    numberOfThreads = cms.untracked.uint32(1),
+    printDependencies = cms.untracked.bool(False),
+    sizeOfStackForThreadsInKB = cms.optional.untracked.uint32,
+    throwIfIllegalParameter = cms.untracked.bool(True),
+    wantSummary = cms.untracked.bool(False)
 )
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('--python_filename nevts:-1'),
+    annotation = cms.untracked.string('run3Nano_Winter22MC_cfg.py nevts:10'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -65,7 +87,7 @@ process.NANOAODSIMoutput = cms.OutputModule("NanoAODOutputModule",
 
 # Other statements
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '106X_mcRun2_asymptotic_preVFP_v11', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '124X_mcRun3_2022_realistic_v11', '')
 
 # Path and EndPath definitions
 process.nanoAOD_step = cms.Path(process.nanoSequenceMC)
@@ -85,13 +107,14 @@ from PhysicsTools.NanoAOD.nano_cff import nanoAOD_customizeMC
 #call to customisation function nanoAOD_customizeMC imported from PhysicsTools.NanoAOD.nano_cff
 process = nanoAOD_customizeMC(process)
 
-# Automatic addition of the customisation function from Configuration.DataProcessing.Utils
-from Configuration.DataProcessing.Utils import addMonitoring 
+# Automatic addition of the customisation function from PhysicsTools.NanoAOD.V10.nano_cff
+from PhysicsTools.NanoAOD.V10.nano_cff import nanoAOD_customizeV10 
 
-#call to customisation function addMonitoring imported from Configuration.DataProcessing.Utils
-process = addMonitoring(process)
+#call to customisation function nanoAOD_customizeV10 imported from PhysicsTools.NanoAOD.V10.nano_cff
+process = nanoAOD_customizeV10(process)
 
 # End of customisation functions
+
 
 # Customisation from command line
 

@@ -1,13 +1,13 @@
 # ReNanoTools
-Tools to Re-Nano UL samples for dilepton + b-jets
+Tools to Re-Nano Run3 samples for the high mass dilepton search
 
 ## CMSSW setup:
 
 ```
-cmsrel CMSSW_10_6_30
-cd CMSSW_10_6_30/src
+cmsrel CMSSW_12_4_9
+cd CMSSW_12_4_9/src
 cmsenv
-git cms-merge-topic JanFSchulte:nanoProd
+git cms-merge-topic JanFSchulte:nanoProdRun3
 scram b -j 4
 ```
 
@@ -16,11 +16,13 @@ scram b -j 4
 ```
 git clone https://github.com/JanFSchulte/ReNanoTools.git
 cd ReNanoTools
+git fetch
+git switch Run3
 ```
 
 The repository contains 3 types of files:
 
-* CMSSW python configuration files for NanoAOD production for Data and MC in the four running periods of the UL campaign
-* .txt files containing a full list of all data and background samples that are needed for the dilepton + b-jets analysis (need to add signal samples)
-* four python scripts to submit crab jobs for the Nano workflows in the four data taking periods, in a loop over all the samples in the corresponding text files
+* CMSSW python configuration files for NanoAOD production for Run 3 Data and Run 3 MC from the Winter22 campaign
+* a .txt containing a full list of all data and background samples that are needed (empty for now)
+* a python scripts to submit crab jobs for the Nano workflows for both data and MC for the samples in the .txt file
 
